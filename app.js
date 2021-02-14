@@ -17,7 +17,6 @@ const showImages = images => {
     imagesArea.style.display = 'block';
     gallery.innerHTML = '';
     // show gallery title
-    toggleSpinner();
     galleryHeader.style.display = 'flex';
 
     images.forEach(image => {
@@ -34,7 +33,7 @@ const getImages = query => {
             .then(response => response.json())
             .then(data => showImages(data.hits))
             .catch(err => console.log(err));
-    }, 3000);
+    }, 1);
 };
 
 let slideIndex = 0;
@@ -46,7 +45,7 @@ const selectItem = (event, img) => {
     if (item === -1) {
         sliders.push(img);
     } else {
-        //alert('Hey, Already added !');
+        //alert('Image, Already added !');
         sliders.pop(img);
     }
 };
@@ -68,7 +67,7 @@ const createSlider = () => {
 
     sliderContainer.appendChild(prevNext);
     document.querySelector('.main').style.display = 'block';
-    // hide image aria
+    // hide image area
     imagesArea.style.display = 'none';
     const duration = document.getElementById('duration').value || 1000;
     sliders.forEach(slide => {
@@ -118,7 +117,7 @@ const displayImg = () => {
     clearInterval(timer);
     getImages(search.value);
     sliders.length = 0;
-    toggleSpinner();
+ 
 };
 
 searchBtn.addEventListener('click', function () {
@@ -134,17 +133,8 @@ search.addEventListener('keyup', function (e) {
 sliderBtn.addEventListener('click', function () {
     const duration = document.getElementById('duration').value || 1000;
     if (duration < 0) {
-        alert('Negative time is not allowed ⚠');
+        alert('Negative duration is not allowed');
     } else {
         createSlider();
     }
 });
-
-const toggleSpinner = () => {
-    const spinner = document.getElementById('loading-spinner').classList;
-    //const gallery = document.querySelector('.gallery').classList;
-    const imagesArea = document.querySelector('.images').classList;
-    spinner.toggle('d-none');
-    imagesArea.toggle('d-none');
-    //console.log(spinner);
-};
