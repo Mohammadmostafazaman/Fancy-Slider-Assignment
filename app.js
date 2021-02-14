@@ -134,7 +134,11 @@ sliderBtn.addEventListener('click', function () {
     const duration = document.getElementById('duration').value || 1000;
     if (duration < 0) {
         alert('Negative duration is not allowed');
-    } else {
+    } 
+     if (duration < 1000) {
+        alert('Less then 1000 Millisecond duration is not allowed');
+    }
+    else {
         createSlider();
     }
 });
